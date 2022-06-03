@@ -1,12 +1,13 @@
 section .data
     x dd 1
     
-    par_msg db "O numero é Par"
+    par_msg db "O numero é Par", 0xA
     par_len equ $- par_msg
     
-    impar_msg db "O numero é Impar"
+    impar_msg db "O numero é Impar", 0xA
     impar_len equ $- impar_msg
-    
+
+section .text
 global _start
 
 _start:
