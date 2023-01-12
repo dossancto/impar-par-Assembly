@@ -1,11 +1,11 @@
 section .data
-    x dd 1
+    x dd 2
     
-    par_msg db "O numero é Par", 0xA
-    par_len equ $- par_msg
+    even_msg db "The number is even.", 0xA
+    even_len equ $- even_msg
     
-    impar_msg db "O numero é Impar", 0xA
-    impar_len equ $- impar_msg
+    odd_msg db "The number is odd", 0xA
+    odd_len equ $- odd_msg
 
 section .text
 global _start
@@ -19,28 +19,31 @@ _start:
     
     cmp     ebx, 0x1
     
-    jne      _impar
-    je      _par
+    je      _odd
+    jmp      _even
     
     int     0x80
     
-_impar:
+;; Print the "even" message
+_even:
     mov     eax, 0x4
     mov     ebx, 0x1
-    mov     ecx, par_msg
-    mov     edx, par_len
+    mov     ecx, even_msg
+    mov     edx, even_len
     int     0x80
     
     jmp     _fim
     
-_par:
+;; Print the "odd" message
+_odd:
     mov     eax, 0x4
     mov     ebx, 0x1
-    mov     ecx, impar_msg
-    mov     edx, impar_len
+    mov     ecx, odd_msg
+    mov     edx, odd_len
     int     0x80
     
     jmp     _fim
+
 _fim:
     mov     eax, 0x1
     mov     ebx, 0x0
